@@ -1,0 +1,33 @@
+spring:
+  data:
+    mongodb:
+      uri: "mongodb://localhost:27017/EZParking"
+      auto-index-creation: true
+  mail:
+    properties:
+      mail:
+        smtp:
+          starttls:
+            enable: 'true'
+          auth: 'true'
+    host: smtp.gmail.com
+    username: madhunaladeekshith@gmail.com
+    password: zgjv zjhx vgix creu
+    port: '587'
+error:
+  handling:
+    http-status-in-json-response: true
+    exception-logging: NO_LOGGING
+    full-stacktrace-http-statuses: 5xx
+    log-levels:
+      5xx: ERROR
+    codes:
+      UserIdValid: USER_ID_VALID
+      VehicleIdValid: VEHICLE_ID_VALID
+      LocationIdValid: LOCATION_ID_VALID
+      ParkingLotIdValid: PARKING_LOT_ID_VALID
+      ReservationIdValid: RESERVATION_ID_VALID
+      PaymentIdValid: PAYMENT_ID_VALID
+      LotAnalyticIdValid: LOT_ANALYTIC_ID_VALID
+springdoc:
+  pathsToMatch: /, /api/**
