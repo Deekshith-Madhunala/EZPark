@@ -23,18 +23,32 @@ public class User {
     @Id
     private String id;
 
+    @NotNull
     @Size(max = 100)
-    private String name;
+    private String firstname;
+
+    @NotNull
+    @Size(max = 100)
+    private String lastname;
 
     @NotNull
     @Size(max = 100)
     private String email;
 
-    @Size(max = 255)
-    private String passwordHash;
-
     @Size(max = 20)
     private String phone;
+
+    @Size(max = 100)
+    private String address;
+
+    @Size(max = 100)
+    private String city;
+
+    @Size(max = 100)
+    private String zipCode;
+
+    @Size(max = 255)
+    private String passwordHash;
 
     @NotNull
     @Size(max = 20)

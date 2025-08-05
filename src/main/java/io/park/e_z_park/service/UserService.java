@@ -62,7 +62,7 @@ public class UserService {
         User savedUser = userRepository.save(user);
         return JwtUtil.generateToken(
                 savedUser.getId(),
-                savedUser.getName(),
+                savedUser.getFirstname(),
                 savedUser.getEmail(),
                 savedUser.getPhone(),
                 savedUser.getRole());
@@ -83,8 +83,13 @@ public class UserService {
 
     private UserDTO mapToDTO(final User user, final UserDTO userDTO) {
         userDTO.setId(user.getId());
-        userDTO.setName(user.getName());
+        userDTO.setFirstname(user.getFirstname());
+        userDTO.setLastname(user.getLastname());
         userDTO.setEmail(user.getEmail());
+        userDTO.setPhone(user.getPhone());
+        userDTO.setAddress(user.getAddress());
+        userDTO.setCity(user.getCity());
+        userDTO.setZipCode(user.getZipCode());
         userDTO.setPasswordHash(user.getPasswordHash());
         userDTO.setPhone(user.getPhone());
         userDTO.setRole(user.getRole());
@@ -94,10 +99,14 @@ public class UserService {
     }
 
     private User mapToEntity(final UserDTO userDTO, final User user) {
-        user.setName(userDTO.getName());
+        user.setFirstname(userDTO.getFirstname());
+        user.setLastname(userDTO.getLastname());
         user.setEmail(userDTO.getEmail());
-        user.setPasswordHash(userDTO.getPasswordHash());
         user.setPhone(userDTO.getPhone());
+        user.setAddress(userDTO.getAddress());
+        user.setCity(userDTO.getCity());
+        user.setZipCode(userDTO.getZipCode());
+        user.setPasswordHash(userDTO.getPasswordHash());
         user.setRole(userDTO.getRole());
         user.setCreatedAt(userDTO.getCreatedAt());
         user.setVehicles(userDTO.getVehicles());
@@ -143,7 +152,7 @@ public class UserService {
 //        }
         return JwtUtil.generateToken(
                 user.getId(),
-                user.getName(),
+                user.getFirstname(),
                 user.getEmail(),
                 user.getPhone(),
                 user.getRole()

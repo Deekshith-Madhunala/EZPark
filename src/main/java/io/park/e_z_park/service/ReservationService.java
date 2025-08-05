@@ -159,7 +159,7 @@ public class ReservationService {
                         "End Time: %s\n" +
                         "Total Price: $%.2f\n\n" +
                         "Thank you for using our service.\n\nBest Regards,\nYour Parking Service Team",
-                reservation.getUser().getName(), // Assuming your User object has a `getName()` method
+                reservation.getUser().getFirstname(), // Assuming your User object has a `getName()` method
                 savedReservation.getId(),
                 reservation.getParkingLot().getName(),
                 slotId,
