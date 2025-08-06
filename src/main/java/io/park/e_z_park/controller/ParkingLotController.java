@@ -44,6 +44,12 @@ public class ParkingLotController {
         return ResponseEntity.ok(parkingLotService.get(id));
     }
 
+    @GetMapping("/name/{name}")
+    public ResponseEntity<ParkingLotDTO> getParkingLotByName(@PathVariable(name = "name") String name) {
+        ParkingLotDTO parkingLotDTO = parkingLotService.getByName(name);
+        return ResponseEntity.ok(parkingLotDTO);
+    }
+
     @PostMapping
     @ApiResponse(responseCode = "201")
     public ResponseEntity<String> createParkingLot(
@@ -80,9 +86,17 @@ public class ParkingLotController {
         return ResponseEntity.ok(parkingLots);
     }
 
-    @GetMapping("/{slotId}/status")
-    public ResponseEntity<SlotStatusResponseDTO> getSlotStatus(@PathVariable String slotId) {
-        return ResponseEntity.ok(parkingLotService.getSlotStatus(slotId));
+//    @GetMapping("/{slotId}/status")
+//    public ResponseEntity<SlotStatusResponseDTO> getSlotStatus(@PathVariable String slotId) {
+//        return ResponseEntity.ok(parkingLotService.getSlotStatus(slotId));
+//    }
+
+    @GetMapping("/{parkinglotId}/slots/{slotId}/status")
+    public ResponseEntity<SlotStatusResponseDTO> getSlotStatus(
+            @PathVariable String parkinglotId,
+            @PathVariable String slotId) {
+        return ResponseEntity.ok(parkingLotService.getSlotStatus(parkinglotId, slotId));
     }
+
 
 }

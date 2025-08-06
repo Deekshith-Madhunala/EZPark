@@ -12,9 +12,7 @@ import io.park.e_z_park.util.NotFoundException;
 import io.park.e_z_park.util.ReferencedWarning;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
@@ -67,14 +65,10 @@ public class ParkingLotService {
         int totalSpots = parkingLot.getTotalSpots();
         List<ParkingSlot> slots = new ArrayList<>();
 
-        // Get abbreviation from parking lot name (first letters of each word)
-        String lotAbbreviation = Arrays.stream(parkingLot.getName().split("\\s+"))
-                .map(word -> word.substring(0, 1).toUpperCase())
-                .collect(Collectors.joining());
-
+        // Instead of using abbreviation, just use a simple number for the slot
         for (int i = 1; i <= totalSpots; i++) {
             ParkingSlot slot = new ParkingSlot();
-            String slotNumber = String.format("%s-S%02d", lotAbbreviation, i);
+            String slotNumber = String.format("%d", i); // Simple number format
 
             slot.setSlotId(slotNumber);
             slot.setOccupied(false);
@@ -157,9 +151,9 @@ public class ParkingLotService {
         return parkingLotRepository.findByLocationId(locationId);
     }
 
-    public SlotStatusResponseDTO getSlotStatus(String slotId) {
-        ParkingLot lot = parkingLotRepository.findBySlotsSlotId(slotId)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Slot not found"));
+    public SlotStatusResponseDTO getSlotStatus(String parkingLotId, String slotId) {
+        ParkingLot lot = parkingLotRepository.findById(parkingLotId)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "ParkingLot not found"));
 
         ParkingSlot slot = lot.getSlots().stream()
                 .filter(s -> s.getSlotId().equals(slotId))
@@ -190,5 +184,13 @@ public class ParkingLotService {
 
         return dto;
     }
+
+    public ParkingLotDTO getByName(String name) {
+        ParkingLot parkingLot = parkingLotRepository.findByName(name)
+                .orElseThrow(() -> new NotFoundException("Parking lot with name " + name + " not found."));
+
+        return mapToDTO(parkingLot, new ParkingLotDTO());
+    }
+
 
 }
