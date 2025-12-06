@@ -5,12 +5,15 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.Digits;
 import jakarta.validation.constraints.Size;
 import java.math.BigDecimal;
+
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
 
 @Getter
 @Setter
+@Data
 public class LocationDTO {
 
     @Size(max = 255)
